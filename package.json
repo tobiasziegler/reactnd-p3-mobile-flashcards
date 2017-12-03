@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "flow-bin": "^0.56.0",
     "husky": "^0.14.3",
     "jest-expo": "23.0.0",
     "lint-staged": "^6.0.0",
@@ -17,7 +18,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "flow": "flow"
   },
   "jest": {
     "preset": "jest-expo"
