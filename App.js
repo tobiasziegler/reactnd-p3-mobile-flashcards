@@ -8,6 +8,7 @@ import Deck from './components/Deck';
 import Quiz from './components/Quiz';
 import NewDeck from './components/NewDeck';
 import NewQuestion from './components/NewQuestion';
+import { setLocalNotification } from './utils/notifications';
 
 function AppStatusBar({ backgroundColor, ...props }) {
   return (
@@ -26,6 +27,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component<{}, void> {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
