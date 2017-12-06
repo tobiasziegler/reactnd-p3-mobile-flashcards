@@ -20,14 +20,24 @@ class DeckList extends Component<{}, void> {
   };
 
   render() {
+    const { decks } = this.props;
+
     return (
       <List>
-        <ListItem
-          title="Flashcard Deck"
-          subtitle="Last quiz completed X days ago"
-          badge={{ value: 12, containerStyle: { marginTop: 10 } }}
-          onPress={() => this.props.navigation.navigate('Deck')}
-        />
+        {Object.keys(decks).map(key => {
+          const deck = decks[key]; // Get the deck object matching the key
+          const cardCount = deck.questions.length; // Get the number of questions
+
+          return (
+            <ListItem
+              key={key}
+              title={deck.title}
+              subtitle="Last quiz completed X days ago"
+              badge={{ value: cardCount, containerStyle: { marginTop: 10 } }}
+              onPress={() => this.props.navigation.navigate('Deck')}
+            />
+          );
+        })}
       </List>
     );
   }
