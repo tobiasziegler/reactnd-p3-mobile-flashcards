@@ -1,5 +1,8 @@
 // @flow
 import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
 import { StackNavigator } from 'react-navigation';
 import { View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
@@ -33,10 +36,12 @@ export default class App extends React.Component<{}, void> {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <AppStatusBar />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1 }}>
+          <AppStatusBar />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

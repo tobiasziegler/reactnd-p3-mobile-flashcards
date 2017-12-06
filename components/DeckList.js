@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { initDecks } from '../actions';
 import { Button } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
@@ -12,6 +14,10 @@ class DeckList extends Component<{}, void> {
       <Button title="New Deck" onPress={() => navigation.navigate('NewDeck')} />
     )
   });
+
+  componentDidMount = () => {
+    this.props.initDecks();
+  };
 
   render() {
     return (
@@ -27,4 +33,8 @@ class DeckList extends Component<{}, void> {
   }
 }
 
-export default DeckList;
+const mapStateToProps = state => {
+  return { decks: state };
+};
+
+export default connect(mapStateToProps, { initDecks })(DeckList);
