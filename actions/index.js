@@ -7,5 +7,3 @@ export const receiveDecks = decks => ({
   type: RECEIVE_DECKS,
   decks
 });
-
-export const initDecks = () => receiveDecks(starterDecks);
