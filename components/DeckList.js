@@ -35,7 +35,9 @@ class DeckList extends Component<{}, void> {
               title={deck.title}
               subtitle={`Last quiz completed: ${lastQuiz}`}
               badge={{ value: cardCount, containerStyle: { marginTop: 10 } }}
-              onPress={() => this.props.navigation.navigate('Deck')}
+              onPress={() =>
+                this.props.navigation.navigate('Deck', { key: key })
+              }
             />
           );
         })}
