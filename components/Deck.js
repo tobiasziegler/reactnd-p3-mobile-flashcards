@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 import { Card } from 'react-native-elements';
+import moment from 'moment';
 
 class Deck extends Component<{ navigation: Object }, void> {
   static navigationOptions = { headerTitle: 'View Deck' };
@@ -10,16 +11,14 @@ class Deck extends Component<{ navigation: Object }, void> {
   render() {
     const { deck } = this.props;
     const cardCount = deck.questions.length;
-    const lastQuiz = new Date(deck.lastQuizDate).toLocaleDateString();
+    const lastQuiz = moment(new Date(deck.lastQuizDate)).fromNow();
 
     return (
       <Card title={deck.title}>
         <Text>{`This deck contains ${cardCount} question ${
           cardCount === 1 ? 'card' : 'cards'
         }.`}</Text>
-        <Text>{`You last completed a quiz with this deck on ${
-          lastQuiz
-        }.`}</Text>
+        <Text>{`You last completed a quiz with this deck ${lastQuiz}.`}</Text>
         <View>
           <Button
             title="Add a Question"
