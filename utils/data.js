@@ -2,6 +2,7 @@
 export const starterDecks = {
   React: {
     title: 'React',
+    lastQuizDate: 1512530132676,
     questions: [
       {
         question: 'What is React?',
@@ -15,6 +16,7 @@ export const starterDecks = {
   },
   JavaScript: {
     title: 'JavaScript',
+    lastQuizDate: 1512530132676,
     questions: [
       {
         question: 'What is a closure?',

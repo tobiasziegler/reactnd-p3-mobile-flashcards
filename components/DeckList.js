@@ -27,12 +27,13 @@ class DeckList extends Component<{}, void> {
         {Object.keys(decks).map(key => {
           const deck = decks[key]; // Get the deck object matching the key
           const cardCount = deck.questions.length; // Get the number of questions
+          const lastQuiz = new Date(deck.lastQuizDate).toLocaleDateString();
 
           return (
             <ListItem
               key={key}
               title={deck.title}
-              subtitle="Last quiz completed X days ago"
+              subtitle={`Last quiz completed: ${lastQuiz}`}
               badge={{ value: cardCount, containerStyle: { marginTop: 10 } }}
               onPress={() => this.props.navigation.navigate('Deck')}
             />
