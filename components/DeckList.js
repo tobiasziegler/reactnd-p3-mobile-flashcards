@@ -26,26 +26,30 @@ class DeckList extends Component<{}, void> {
     return (
       <View>
         <List>
-          {Object.keys(decks).map(key => {
-            const deck = decks[key]; // Get the deck object matching the key
-            const cardCount = deck.questions.length; // Get the number of questions
-            // Generate last quiz date string while handling null values
-            const lastQuiz = deck.lastQuizDate
-              ? new Date(deck.lastQuizDate).toLocaleDateString()
-              : 'never';
+          {decks &&
+            Object.keys(decks).map(key => {
+              const deck = decks[key]; // Get the deck object matching the key
+              const cardCount = deck.questions.length; // Get the number of questions
+              // Generate last quiz date string while handling null values
+              const lastQuiz = deck.lastQuizDate
+                ? new Date(deck.lastQuizDate).toLocaleDateString()
+                : 'never';
 
-            return (
-              <ListItem
-                key={key}
-                title={deck.title}
-                subtitle={`Last quiz completed: ${lastQuiz}`}
-                badge={{ value: cardCount, containerStyle: { marginTop: 10 } }}
-                onPress={() =>
-                  this.props.navigation.navigate('Deck', { key: key })
-                }
-              />
-            );
-          })}
+              return (
+                <ListItem
+                  key={key}
+                  title={deck.title}
+                  subtitle={`Last quiz completed: ${lastQuiz}`}
+                  badge={{
+                    value: cardCount,
+                    containerStyle: { marginTop: 10 }
+                  }}
+                  onPress={() =>
+                    this.props.navigation.navigate('Deck', { key: key })
+                  }
+                />
+              );
+            })}
         </List>
         <Button title="Reset Sample Data" onPress={() => resetDecks()} />
       </View>
