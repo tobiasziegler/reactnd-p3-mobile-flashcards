@@ -11,14 +11,21 @@ class Deck extends Component<{ navigation: Object }, void> {
   render() {
     const { deck } = this.props;
     const cardCount = deck.questions.length;
-    const lastQuiz = moment(new Date(deck.lastQuizDate)).fromNow();
+    // Generate last quiz date string while handling null values
+    const lastQuiz = deck.lastQuizDate
+      ? moment(new Date(deck.lastQuizDate)).fromNow()
+      : null;
 
     return (
       <Card title={deck.title}>
         <Text>{`This deck contains ${cardCount} question ${
           cardCount === 1 ? 'card' : 'cards'
         }.`}</Text>
-        <Text>{`You last completed a quiz with this deck ${lastQuiz}.`}</Text>
+        <Text>
+          {lastQuiz
+            ? `You last completed a quiz with this deck ${lastQuiz}.`
+            : 'You have yet to complete this quiz.'}
+        </Text>
         <View>
           <Button
             title="Add a Question"

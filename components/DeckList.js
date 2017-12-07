@@ -29,7 +29,10 @@ class DeckList extends Component<{}, void> {
           {Object.keys(decks).map(key => {
             const deck = decks[key]; // Get the deck object matching the key
             const cardCount = deck.questions.length; // Get the number of questions
-            const lastQuiz = new Date(deck.lastQuizDate).toLocaleDateString();
+            // Generate last quiz date string while handling null values
+            const lastQuiz = deck.lastQuizDate
+              ? new Date(deck.lastQuizDate).toLocaleDateString()
+              : 'never';
 
             return (
               <ListItem
