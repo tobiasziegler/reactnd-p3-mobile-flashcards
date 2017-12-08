@@ -20,10 +20,12 @@ class NewDeck extends Component<{}, void> {
 
     if (!title || title === '') {
       Alert.alert('Empty Title', 'Please enter a title for your new deck.');
+      return;
     }
 
     if (decks[title]) {
       Alert.alert('Duplicate Title', 'A deck with this title already exists.');
+      return;
     }
 
     // Create the object structure for the new deck
