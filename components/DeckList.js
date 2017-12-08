@@ -11,9 +11,7 @@ class DeckList extends Component<{}, void> {
   // https://reactnavigation.org/docs/navigators/navigation-options#Stack-Navigation-Options
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'My Decks',
-    headerRight: (
-      <Button title="New Deck" onPress={() => navigation.navigate('NewDeck')} />
-    )
+    tabBarLabel: 'My Decks'
   });
 
   componentDidMount = () => {

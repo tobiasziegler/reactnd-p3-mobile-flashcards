@@ -3,7 +3,7 @@ import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
 import DeckList from './components/DeckList';
@@ -21,11 +21,15 @@ function AppStatusBar({ backgroundColor, ...props }) {
   );
 }
 
+const Tabs = TabNavigator({
+  DeckList: { screen: DeckList },
+  NewDeck: { screen: NewDeck }
+});
+
 const MainNavigator = StackNavigator({
-  Home: { screen: DeckList },
+  Home: { screen: Tabs },
   Deck: { screen: Deck },
   Quiz: { screen: Quiz },
-  NewDeck: { screen: NewDeck },
   NewQuestion: { screen: NewQuestion }
 });
 

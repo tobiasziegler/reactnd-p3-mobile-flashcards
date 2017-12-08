@@ -7,7 +7,10 @@ import { Text, TextInput, Button, Alert } from 'react-native';
 import { Card } from 'react-native-elements';
 
 class NewDeck extends Component<{}, void> {
-  static navigationOptions = { headerTitle: 'Add a Deck' };
+  static navigationOptions = {
+    headerTitle: 'Add a Deck',
+    tabBarLabel: 'New Deck'
+  };
 
   state = { title: '' };
 
