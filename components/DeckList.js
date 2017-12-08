@@ -18,6 +18,11 @@ class DeckList extends Component<{}, void> {
     getDecks().then(decks => this.props.receiveDecks(decks));
   };
 
+  resetSubmit = () => {
+    resetDecks();
+    getDecks().then(decks => this.props.receiveDecks(decks));
+  };
+
   render() {
     const { decks } = this.props;
 
@@ -49,7 +54,7 @@ class DeckList extends Component<{}, void> {
               );
             })}
         </List>
-        <Button title="Reset Sample Data" onPress={() => resetDecks()} />
+        <Button title="Reset Sample Data" onPress={() => this.resetSubmit()} />
       </View>
     );
   }
