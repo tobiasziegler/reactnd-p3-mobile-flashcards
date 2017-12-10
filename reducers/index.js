@@ -1,6 +1,5 @@
 // @flow
-import { RECEIVE_DECKS } from '../actions';
-import { CREATE_DECK } from '../actions';
+import { RECEIVE_DECKS, CREATE_DECK, CREATE_CARD } from '../actions';
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -11,8 +10,17 @@ function decks(state = {}, action) {
         ...state,
         ...action.deck
       };
-    default:
-      return state;
+    case CREATE_CARD:
+      return {
+        ...state,
+        [action.deck.title]: {
+          ...state[action.deck.title],
+          questions: [
+            ...state[action.deck.title].questions,
+            { question: action.card.question, answer: action.card.answer }
+          ]
+        }
+      };
   }
 }
 

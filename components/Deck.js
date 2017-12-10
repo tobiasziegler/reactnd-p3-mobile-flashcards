@@ -29,7 +29,11 @@ class Deck extends Component<{ navigation: Object }, void> {
         <View>
           <Button
             title="Add a Question"
-            onPress={() => this.props.navigation.navigate('NewQuestion')}
+            onPress={() =>
+              this.props.navigation.navigate('NewQuestion', {
+                deck: deck.title
+              })
+            }
           />
         </View>
         <View>
