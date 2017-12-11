@@ -1,5 +1,10 @@
 // @flow
-import { RECEIVE_DECKS, CREATE_DECK, CREATE_CARD } from '../actions';
+import {
+  RECEIVE_DECKS,
+  CREATE_DECK,
+  CREATE_CARD,
+  UPDATE_DECK_DATE
+} from '../actions';
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -9,6 +14,14 @@ function decks(state = {}, action) {
       return {
         ...state,
         ...action.deck
+      };
+    case UPDATE_DECK_DATE:
+      return {
+        ...state,
+        [action.deck.title]: {
+          ...state[action.deck.title],
+          lastQuizDate: action.date
+        }
       };
     case CREATE_CARD:
       return {
