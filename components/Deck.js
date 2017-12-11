@@ -39,6 +39,7 @@ class Deck extends Component<{ navigation: Object }, void> {
         <View>
           <Button
             title="Start a Quiz"
+            disabled={!(deck.questions.length > 0)}
             onPress={() =>
               this.props.navigation.navigate('Quiz', {
                 deck: deck.title
