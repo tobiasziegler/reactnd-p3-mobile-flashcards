@@ -3,7 +3,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createDeck } from '../actions';
 import { addDeck } from '../utils/api';
-import { Text, TextInput, Button, Alert } from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  Button,
+  Alert,
+  StyleSheet,
+  Platform
+} from 'react-native';
 import { Card } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -57,8 +65,11 @@ class NewDeck extends Component<{}, void> {
           autoFocus={true}
           value={this.state.title}
           onChangeText={value => this.setState({ title: value })}
+          style={styles.textInput}
         />
-        <Button title="Submit" onPress={() => this.submitDeck()} />
+        <View style={styles.buttonView}>
+          <Button title="Submit" onPress={() => this.submitDeck()} />
+        </View>
       </Card>
     );
   }
@@ -67,5 +78,17 @@ class NewDeck extends Component<{}, void> {
 const mapStateToProps = state => {
   return { decks: state };
 };
+
+const styles = StyleSheet.create({
+  textInput: {
+    height: 32,
+    marginTop: 8,
+    paddingBottom: 16
+  },
+  buttonView: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 16,
+    marginTop: Platform.OS === 'ios' ? 0 : 16
+  }
+});
 
 export default connect(mapStateToProps, { createDeck })(NewDeck);

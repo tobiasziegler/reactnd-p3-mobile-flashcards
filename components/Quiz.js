@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateDeckDate } from '../actions';
 import { saveDeckDate } from '../utils/api';
-import { Text, Button } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, Button, View, StyleSheet, Platform } from 'react-native';
+import { Card, Badge } from 'react-native-elements';
+import { green, red } from '../utils/colours';
 import {
   setLocalNotification,
   clearLocalNotification
@@ -96,33 +97,56 @@ class Quiz extends Component<{}, void> {
 
     return quizCompleted ? (
       <Card title={`${deck.title} Quiz - Your Score`}>
-        <Text>
-          Quiz complete! You scored {correctAnswers} out of {numberOfCards} ({percentageScore.toFixed(
-            0
-          )}%).
-        </Text>
-        <Button title="Restart Quiz" onPress={() => this.resetQuiz()} />
-        <Button
-          title="Back to Deck"
-          onPress={() => this.props.navigation.goBack()}
+        <Text style={[styles.text, { fontSize: 24 }]}>Quiz complete!</Text>
+        <Badge
+          value={`${percentageScore.toFixed(0)}%`}
+          wrapperStyle={styles.badgeWrapper}
+          containerStyle={styles.badgeContainer}
+          textStyle={styles.badgeText}
         />
+        <Text style={[styles.text, { fontSize: 24 }]}>
+          You scored {correctAnswers} out of {numberOfCards}.
+        </Text>
+        <View style={styles.buttonView}>
+          <Button title="Restart Quiz" onPress={() => this.resetQuiz()} />
+        </View>
+        <View style={styles.buttonView}>
+          <Button
+            title="Back to Deck"
+            onPress={() => this.props.navigation.goBack()}
+          />
+        </View>
       </Card>
     ) : (
       <Card title={`${deck.title} Quiz - Question ${currentCard + 1}`}>
-        <Text>
+        <Text style={[styles.text, { fontSize: 24 }]}>
           {!showingAnswer
             ? deck.questions[currentCard].question
             : deck.questions[currentCard].answer}
         </Text>
-        <Button
-          title={!showingAnswer ? 'Show Answer' : 'Show Question'}
-          onPress={() => this.flipCard()}
-        />
+        <View style={styles.buttonView}>
+          <Button
+            title={!showingAnswer ? 'Show Answer' : 'Show Question'}
+            onPress={() => this.flipCard()}
+          />
+        </View>
         <Card title="Mark your answer">
-          <Button title="Correct" onPress={() => this.answerCorrect()} />
-          <Button title="Incorrect" onPress={() => this.answerIncorrect()} />
+          <View style={styles.buttonView}>
+            <Button
+              title="Correct"
+              onPress={() => this.answerCorrect()}
+              color={green}
+            />
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Incorrect"
+              onPress={() => this.answerIncorrect()}
+              color={red}
+            />
+          </View>
         </Card>
-        <Text>
+        <Text style={[styles.text, { marginTop: 16 }]}>
           {questionsRemaining === 0
             ? 'This is your final question!'
             : questionsRemaining === 1
@@ -139,5 +163,28 @@ const mapStateToProps = (state, ownProps) => {
 
   return { deck: state[deck] };
 };
+
+const styles = StyleSheet.create({
+  text: {
+    marginBottom: 10,
+    textAlign: 'center'
+  },
+  badgeContainer: {
+    height: 96,
+    width: 96,
+    borderRadius: 48
+  },
+  badgeWrapper: {
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  badgeText: {
+    fontSize: 24
+  },
+  buttonView: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 16,
+    marginTop: Platform.OS === 'ios' ? 0 : 16
+  }
+});
 
 export default connect(mapStateToProps, { updateDeckDate })(Quiz);

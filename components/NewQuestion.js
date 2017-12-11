@@ -1,6 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import { Text, TextInput, Button, Alert } from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  Button,
+  Alert,
+  StyleSheet,
+  Platform
+} from 'react-native';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { createCard } from '../actions';
@@ -51,14 +59,18 @@ class NewQuestion extends Component<{}, void> {
           autoFocus={true}
           value={this.state.question}
           onChangeText={value => this.setState({ question: value })}
+          style={styles.textInput}
         />
         <Text>Answer</Text>
         <TextInput
           multiline={true}
           value={this.state.answer}
           onChangeText={value => this.setState({ answer: value })}
+          style={styles.textInput}
         />
-        <Button title="Submit" onPress={() => this.submitQuestion()} />
+        <View style={styles.buttonView}>
+          <Button title="Submit" onPress={() => this.submitQuestion()} />
+        </View>
       </Card>
     );
   }
@@ -69,5 +81,17 @@ const mapStateToProps = (state, ownProps) => {
 
   return { deck: state[deck] };
 };
+
+const styles = StyleSheet.create({
+  textInput: {
+    minHeight: 32,
+    marginTop: 8,
+    paddingBottom: 16
+  },
+  buttonView: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 16,
+    marginTop: Platform.OS === 'ios' ? 0 : 16
+  }
+});
 
 export default connect(mapStateToProps, { createCard })(NewQuestion);

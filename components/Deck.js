@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Button } from 'react-native';
-import { Card } from 'react-native-elements';
+import { View, Text, Button, StyleSheet, Platform } from 'react-native';
+import { Card, Badge } from 'react-native-elements';
 import moment from 'moment';
 
 class Deck extends Component<{ navigation: Object }, void> {
@@ -18,15 +18,22 @@ class Deck extends Component<{ navigation: Object }, void> {
 
     return (
       <Card title={deck.title}>
-        <Text>{`This deck contains ${cardCount} question ${
+        <Text style={styles.text}>This deck contains</Text>
+        <Badge
+          value={cardCount}
+          wrapperStyle={styles.badgeWrapper}
+          containerStyle={styles.badgeContainer}
+          textStyle={styles.badgeText}
+        />
+        <Text style={styles.text}>{`question ${
           cardCount === 1 ? 'card' : 'cards'
         }.`}</Text>
-        <Text>
+        <Text style={[styles.text, { marginTop: 32 }]}>
           {lastQuiz
             ? `You last completed a quiz with this deck ${lastQuiz}.`
             : 'You have yet to complete this quiz.'}
         </Text>
-        <View>
+        <View style={styles.buttonView}>
           <Button
             title="Add a Question"
             onPress={() =>
@@ -36,7 +43,7 @@ class Deck extends Component<{ navigation: Object }, void> {
             }
           />
         </View>
-        <View>
+        <View style={styles.buttonView}>
           <Button
             title="Start a Quiz"
             disabled={!(deck.questions.length > 0)}
@@ -57,5 +64,28 @@ const mapStateToProps = (state, ownProps) => {
 
   return { deck: state[key] };
 };
+
+const styles = StyleSheet.create({
+  text: {
+    marginBottom: 10,
+    textAlign: 'center'
+  },
+  badgeContainer: {
+    height: 48,
+    width: 48,
+    borderRadius: 24
+  },
+  badgeWrapper: {
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  badgeText: {
+    fontSize: 24
+  },
+  buttonView: {
+    marginBottom: Platform.OS === 'ios' ? 0 : 16,
+    marginTop: Platform.OS === 'ios' ? 0 : 16
+  }
+});
 
 export default connect(mapStateToProps)(Deck);
