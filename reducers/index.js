@@ -34,6 +34,8 @@ function decks(state = {}, action) {
           ]
         }
       };
+    default:
+      return state;
   }
 }
 
