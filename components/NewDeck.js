@@ -5,11 +5,15 @@ import { createDeck } from '../actions';
 import { addDeck } from '../utils/api';
 import { Text, TextInput, Button, Alert } from 'react-native';
 import { Card } from 'react-native-elements';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 class NewDeck extends Component<{}, void> {
   static navigationOptions = {
     headerTitle: 'Add a Deck',
-    tabBarLabel: 'New Deck'
+    tabBarLabel: 'New Deck',
+    tabBarIcon: ({ tintColor }) => (
+      <MaterialCommunityIcons name="plus" size={30} color={tintColor} />
+    )
   };
 
   state = { title: '' };

@@ -5,13 +5,17 @@ import { receiveDecks } from '../actions';
 import { getDecks, resetDecks } from '../utils/api';
 import { FlatList, View, Button } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 class DeckList extends Component<{}, void> {
   // Navigation code with some help from
   // https://reactnavigation.org/docs/navigators/navigation-options#Stack-Navigation-Options
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'My Decks',
-    tabBarLabel: 'My Decks'
+    tabBarLabel: 'My Decks',
+    tabBarIcon: ({ tintColor }) => (
+      <MaterialCommunityIcons name="cards" size={30} color={tintColor} />
+    )
   });
 
   componentDidMount = () => {
