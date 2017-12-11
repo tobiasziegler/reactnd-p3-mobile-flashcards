@@ -5,6 +5,10 @@ import { updateDeckDate } from '../actions';
 import { saveDeckDate } from '../utils/api';
 import { Text, Button } from 'react-native';
 import { Card } from 'react-native-elements';
+import {
+  setLocalNotification,
+  clearLocalNotification
+} from '../utils/notifications';
 
 class Quiz extends Component<{}, void> {
   static navigationOptions = { headerTitle: 'Quiz' };
@@ -41,6 +45,8 @@ class Quiz extends Component<{}, void> {
     saveDeckDate(deck, quizDate).then(
       this.props.updateDeckDate(deck, quizDate)
     );
+
+    clearLocalNotification().then(setLocalNotification());
   };
 
   answerCorrect = () => {
