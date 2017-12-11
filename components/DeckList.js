@@ -60,7 +60,7 @@ class DeckList extends Component<{}, void> {
       <View>
         <List>
           <FlatList
-            data={Object.values(decks)}
+            data={decks ? Object.values(decks) : []}
             renderItem={this.renderItem}
             ListFooterComponent={this.renderFooter}
             keyExtractor={item => item.title}
